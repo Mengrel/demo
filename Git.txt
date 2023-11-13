@@ -1,0 +1,109 @@
+import java.io.*;
+import java.util.HashMap;
+import java.util.Map;
+
+
+public class MyCalc {
+
+    public static void main(String[] args) throws IOException, InterruptedException {
+        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+        String s = reader.readLine();
+
+        String[] math = s.split("[+\\-*/]");
+        if(math.length!=2){
+            throw new IllegalArgumentException("Incorrect data entered");}
+        if(math[0].matches("[0-9]+") && math[1].matches("[0-9]+")){
+            System.out.println(sign(math[0],s,math[1]));
+
+        } else if (math[0].matches("[IVXLC]+") && math[1].matches("[IVXLC]+")) {
+            //
+            System.out.println(arabicToRim(sign(rimToArab(math[0]),s,rimToArab(math[1]))));
+        }
+        else {
+            throw new IllegalArgumentException("Numbers must be in the same calculus");
+        }
+
+
+    }
+
+    /**Метод переводит с римских в арабские цифры*/
+    public static String rimToArab(String rimNum){
+        char[] ch = rimNum.toCharArray();
+        int result;
+        Map<Character , Integer> mapGreek = new HashMap<>();
+        mapGreek.put('I',1);
+        mapGreek.put('V',5);
+        mapGreek.put('X',10);
+        mapGreek.put('L',50);
+        mapGreek.put('C',100);
+
+        int end = ch.length-1;
+        result = mapGreek.get(ch[end]);
+
+        for (int i = end; i>=0; i--){
+            if(i!=0){  // что бы не выйти за предел массива
+                if( mapGreek.get(ch[i-1])>= mapGreek.get(ch[i])){
+                    result = result+ mapGreek.get(ch[i-1]); // складываем последние числа
+                } else {result = result - mapGreek.get(ch[i-1]);}
+
+            }
+
+        }
+
+        return String.valueOf(result);
+    }
+
+    /** Метод переводит с арабских в римские цифры*/
+    public static String arabicToRim(String arabic){
+
+        int arab = Integer.parseInt(arabic);
+
+
+        if(arab>0 && arab<101){
+            String result = "";
+            int[] arabicVal = {100,90,50,40,10,9,5,4,1};
+            String[] rimSymbols = {"C", "XC", "L", "XL", "X", "IX", "V", "IV", "I"};
+            StringBuilder rimNum = new StringBuilder();
+            int i = 0;
+            while (arab>0){
+                if(arab-arabicVal[i]>=0){
+                    rimNum.append(rimSymbols[i]);
+                    arab = arab-arabicVal[i];
+                } else {
+                    i++;
+                }
+            }
+            result = String.valueOf(rimNum);
+            return result;}
+        else {
+            throw new IllegalArgumentException("Numbers should be between I and C строка 77");
+            }
+
+    }
+
+    /**Метод проверяет какой оператор используется*/
+    static String sign(String a, String b,String c){
+        int variableA = Integer.parseInt(a);
+        int variableC = Integer.parseInt(c);
+        String result = "0";
+
+        if(variableA > 0 && variableA < 11 && variableC > 0 && variableC < 11){
+
+            if(b.indexOf("+")>=0){
+                result =  String.valueOf(variableA + variableC);
+
+            }else if (b.indexOf("-")>=0){
+                result =  String.valueOf(variableA - variableC) ;
+            }else if(b.indexOf("/")>=0){
+                result =  String.valueOf(variableA / variableC);
+            }else if(b.indexOf("*")>=0){
+                result =  String.valueOf(variableA * variableC);
+            }
+
+
+        } else {
+            throw new IllegalArgumentException("Numbers should be between 0 and 11");
+        }
+        return result;
+    }
+}
