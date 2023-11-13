@@ -26,7 +26,7 @@ public class MyCalc {
 
     }
 
-    /**Метод переводит с римских в арабские цифры*/
+    /**ГЊГҐГІГ®Г¤ ГЇГҐГ°ГҐГўГ®Г¤ГЁГІ Г± Г°ГЁГ¬Г±ГЄГЁГµ Гў Г Г°Г ГЎГ±ГЄГЁГҐ Г¶ГЁГґГ°Г»*/
     public static String rimToArab(String rimNum){
         char[] ch = rimNum.toCharArray();
         int result;
@@ -41,9 +41,9 @@ public class MyCalc {
         result = mapGreek.get(ch[end]);
 
         for (int i = end; i>=0; i--){
-            if(i!=0){  // что бы не выйти за предел массива
+            if(i!=0){  // Г·ГІГ® ГЎГ» Г­ГҐ ГўГ»Г©ГІГЁ Г§Г  ГЇГ°ГҐГ¤ГҐГ« Г¬Г Г±Г±ГЁГўГ 
                 if( mapGreek.get(ch[i-1])>= mapGreek.get(ch[i])){
-                    result = result+ mapGreek.get(ch[i-1]); // складываем последние числа
+                    result = result+ mapGreek.get(ch[i-1]); // Г±ГЄГ«Г Г¤Г»ГўГ ГҐГ¬ ГЇГ®Г±Г«ГҐГ¤Г­ГЁГҐ Г·ГЁГ±Г«Г 
                 } else {result = result - mapGreek.get(ch[i-1]);}
 
             }
@@ -53,7 +53,7 @@ public class MyCalc {
         return String.valueOf(result);
     }
 
-    /** Метод переводит с арабских в римские цифры*/
+    /** ГЊГҐГІГ®Г¤ ГЇГҐГ°ГҐГўГ®Г¤ГЁГІ Г± Г Г°Г ГЎГ±ГЄГЁГµ Гў Г°ГЁГ¬Г±ГЄГЁГҐ Г¶ГЁГґГ°Г»*/
     public static String arabicToRim(String arabic){
 
         int arab = Integer.parseInt(arabic);
@@ -76,12 +76,12 @@ public class MyCalc {
             result = String.valueOf(rimNum);
             return result;}
         else {
-            throw new IllegalArgumentException("Numbers should be between I and C строка 77");
+            throw new IllegalArgumentException("Numbers should be between I and C Г±ГІГ°Г®ГЄГ  77");
             }
 
     }
 
-    /**Метод проверяет какой оператор используется*/
+    /**ГЊГҐГІГ®Г¤ ГЇГ°Г®ГўГҐГ°ГїГҐГІ ГЄГ ГЄГ®Г© Г®ГЇГҐГ°Г ГІГ®Г° ГЁГ±ГЇГ®Г«ГјГ§ГіГҐГІГ±Гї*/
     static String sign(String a, String b,String c){
         int variableA = Integer.parseInt(a);
         int variableC = Integer.parseInt(c);
